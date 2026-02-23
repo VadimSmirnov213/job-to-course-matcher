@@ -1,0 +1,73 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:4.4.7-focal
+    ports:
+      - 27017:27017
+    volumes:
+      - db:/db
+
+  redis:
+    build:
+      context: redis
+      dockerfile: Dockerfile
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=YES
+      - REDIS_DISABLE_COMMANDS=FLUSHDB, FLUSHALL
+
+  server_cfo:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    env_file:
+      - server/.env-prod
+    container_name: server_cfo
+    ports:
+      - 9000:9000
+    depends_on:
+      - mongodb
+      - redis
+
+  celery_worker:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    command: celery -A cel_que:celery worker --loglevel=INFO
+    ports:
+      - 6162:6162
+    environment:
+      - CELERY_BROKER=redis://redis:6379
+      - CELERY_RESULT_BACKEND=redis://redis:6379
+      - CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP=True
+      - DEBUG=1
+      - CELERY_BROKER_TRANSPORT=amqp
+      - CELERY_BROKER_CONNECTION_RETRY=True
+    depends_on:
+      - server_cfo
+      - redis
+  celery_flower:
+    build:
+      context: server
+      dockerfile: Dockerfile
+    command: celery -A cel_que:celery flower
+    ports:
+      - 5555:5555
+    depends_on:
+      - server_cfo
+      - redis
+      - celery_worker
+    environment:
+      - CELERY_BROKER=redis://redis:6379
+      - CELERY_RESULT_BACKEND=redis://redis:6379
+      - CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP=True
+      - DEBUG=1
+      - CELERY_BROKER_TRANSPORT=amqp
+      - CELERY_BROKER_CONNECTION_RETRY=True
+
+
+
+
+volumes:
+  db:

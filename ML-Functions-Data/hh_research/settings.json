@@ -1,0 +1,17 @@
+{
+  "options": {
+    "text": "Unreal Engine",
+    "area": 1,
+    "per_page": 50,
+    "professional_roles": [96, 10]
+  },
+  "refresh": false,
+  "num_workers": 10,
+  "save_result": false,
+  "rates": {
+    "USD": 0.012641,
+    "EUR": 0.010831,
+    "UAH": 0.35902,
+    "RUR": 1
+  }
+}
