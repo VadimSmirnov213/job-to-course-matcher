@@ -1,0 +1,26 @@
+.catalogue {
+  display: block;
+  justify-content: center;
+}
+
+.catalogue .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%/3, max(250px, 100%/5)), 1fr));
+  column-gap: 25px;
+  row-gap: 25px;
+  margin: 50px;
+}
+
+.catalogue .options {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
+  align-items: center;
+  margin-top: 40px;
+  margin-left: 50px;
+  margin-right: 90px;
+}
+
+.catalogue .filters {
+  column-gap: 15px;
+}

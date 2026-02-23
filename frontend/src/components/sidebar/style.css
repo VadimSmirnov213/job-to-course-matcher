@@ -1,0 +1,25 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 25px;
+  height: 100%;
+  border-right: 1px solid #3c3c3c;
+}
+
+.sidebar .footer {
+  bottom: 20px;
+  position: absolute;
+}
+
+.sidebar .footer button {
+  display: flex;
+  justify-content: center;
+  width: fit-content
+}
+
+.sidebar button {
+  width: 190px;
+  color: #fff;
+  justify-content: flex-start;
+}

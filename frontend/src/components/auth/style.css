@@ -1,0 +1,26 @@
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  height: 100%;
+}
+
+.auth .info {
+  background-color: #262626;
+  padding: 20px;
+  border: 1px solid #2e2e2e;
+  border-radius: 5px;
+}
+
+.auth .header {
+  margin: 20px;
+  border-bottom: 1px solid #999999;
+}
+
+.auth .inputs {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 5px;
+}
