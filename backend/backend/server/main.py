@@ -29,7 +29,6 @@ app.add_middleware(
 )
 
 
-# for cache
 @app.on_event('startup')
 async def startup_event():
     redis = aioredis.from_url(F"{REDIS_NAME}://{REDIS_HOST}:{REDIS_PORT}", encoding='utf8', decode_responses=True)
